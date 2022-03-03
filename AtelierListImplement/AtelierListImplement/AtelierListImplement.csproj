@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="AtelierBusinessLogic">
+      <HintPath>..\..\AtelierBusinessLogic\AtelierBusinessLogic\bin\Debug\netcoreapp3.1\AtelierBusinessLogic.dll</HintPath>
+    </Reference>
+    <Reference Include="AtelierContracts">
+      <HintPath>..\..\AtelierContracts\AtelierContracts\bin\Debug\netcoreapp3.1\AtelierContracts.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>
