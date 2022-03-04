@@ -67,12 +67,14 @@ namespace AtelierView
             this.компонентыToolStripMenuItem.Name = "компонентыToolStripMenuItem";
             this.компонентыToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.компонентыToolStripMenuItem.Text = "Компоненты";
+            this.компонентыToolStripMenuItem.Click += new System.EventHandler(this.компонентыToolStripMenuItem_Click);
             // 
             // изделияToolStripMenuItem
             // 
             this.изделияToolStripMenuItem.Name = "изделияToolStripMenuItem";
             this.изделияToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.изделияToolStripMenuItem.Text = "Изделия";
+            this.изделияToolStripMenuItem.Click += new System.EventHandler(this.изделияToolStripMenuItem_Click);
             // 
             // dataGridView
             // 
@@ -91,6 +93,7 @@ namespace AtelierView
             this.buttonCreateOrder.TabIndex = 2;
             this.buttonCreateOrder.Text = "Создать заказ";
             this.buttonCreateOrder.UseVisualStyleBackColor = true;
+            this.buttonCreateOrder.Click += new System.EventHandler(this.buttonCreateOrder_Click);
             // 
             // buttonTakeOrder
             // 
@@ -100,6 +103,7 @@ namespace AtelierView
             this.buttonTakeOrder.TabIndex = 3;
             this.buttonTakeOrder.Text = "Отдать на выполнение";
             this.buttonTakeOrder.UseVisualStyleBackColor = true;
+            this.buttonTakeOrder.Click += new System.EventHandler(this.buttonTakeOrder_Click);
             // 
             // buttonOrderReady
             // 
@@ -109,6 +113,7 @@ namespace AtelierView
             this.buttonOrderReady.TabIndex = 4;
             this.buttonOrderReady.Text = "Заказ готов";
             this.buttonOrderReady.UseVisualStyleBackColor = true;
+            this.buttonOrderReady.Click += new System.EventHandler(this.buttonOrderReady_Click);
             // 
             // buttonIssuedOrder
             // 
@@ -118,6 +123,7 @@ namespace AtelierView
             this.buttonIssuedOrder.TabIndex = 5;
             this.buttonIssuedOrder.Text = "Заказ выдан";
             this.buttonIssuedOrder.UseVisualStyleBackColor = true;
+            this.buttonIssuedOrder.Click += new System.EventHandler(this.buttonIssuedOrder_Click);
             // 
             // buttonRef
             // 
@@ -127,6 +133,7 @@ namespace AtelierView
             this.buttonRef.TabIndex = 6;
             this.buttonRef.Text = "Обновить список";
             this.buttonRef.UseVisualStyleBackColor = true;
+            this.buttonRef.Click += new System.EventHandler(this.buttonRef_Click);
             // 
             // FormMain
             // 
@@ -143,6 +150,7 @@ namespace AtelierView
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "FormMain";
             this.Text = "Ателье";
+            this.Load += new System.EventHandler(this.FormMain_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();

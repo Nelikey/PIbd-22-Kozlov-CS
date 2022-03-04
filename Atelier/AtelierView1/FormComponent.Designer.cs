@@ -59,6 +59,7 @@ namespace AtelierView
             this.buttonSave.TabIndex = 2;
             this.buttonSave.Text = "Сохранить";
             this.buttonSave.UseVisualStyleBackColor = true;
+            this.buttonSave.Click += new System.EventHandler(this.buttonSave_Click);
             // 
             // buttonCancel
             // 
@@ -68,6 +69,7 @@ namespace AtelierView
             this.buttonCancel.TabIndex = 3;
             this.buttonCancel.Text = "Отмена";
             this.buttonCancel.UseVisualStyleBackColor = true;
+            this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
             // 
             // FormComponent
             // 
@@ -80,6 +82,7 @@ namespace AtelierView
             this.Controls.Add(this.label1);
             this.Name = "FormComponent";
             this.Text = "Компонент";
+            this.Load += new System.EventHandler(this.FormComponent_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

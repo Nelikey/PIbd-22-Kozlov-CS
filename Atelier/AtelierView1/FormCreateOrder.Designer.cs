@@ -73,6 +73,7 @@ namespace AtelierView
             this.comboBoxDress.Name = "comboBoxDress";
             this.comboBoxDress.Size = new System.Drawing.Size(210, 23);
             this.comboBoxDress.TabIndex = 3;
+            this.comboBoxDress.SelectedIndexChanged += new System.EventHandler(this.ComboBoxDress_SelectedIndexChanged);
             // 
             // textBoxCount
             // 
@@ -80,6 +81,7 @@ namespace AtelierView
             this.textBoxCount.Name = "textBoxCount";
             this.textBoxCount.Size = new System.Drawing.Size(210, 23);
             this.textBoxCount.TabIndex = 4;
+            this.textBoxCount.TextChanged += new System.EventHandler(this.TextBoxCount_TextChanged);
             // 
             // textBoxSum
             // 
@@ -96,6 +98,7 @@ namespace AtelierView
             this.buttonSave.TabIndex = 6;
             this.buttonSave.Text = "Сохранить";
             this.buttonSave.UseVisualStyleBackColor = true;
+            this.buttonSave.Click += new System.EventHandler(this.buttonSave_Click);
             // 
             // buttonCancel
             // 
@@ -105,6 +108,7 @@ namespace AtelierView
             this.buttonCancel.TabIndex = 7;
             this.buttonCancel.Text = "Отмена";
             this.buttonCancel.UseVisualStyleBackColor = true;
+            this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
             // 
             // FormCreateOrder
             // 
@@ -121,6 +125,7 @@ namespace AtelierView
             this.Controls.Add(this.label1);
             this.Name = "FormCreateOrder";
             this.Text = "Заказ";
+            this.Load += new System.EventHandler(this.FormCreateOrder_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

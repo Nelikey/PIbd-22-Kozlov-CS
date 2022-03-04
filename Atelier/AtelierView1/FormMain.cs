@@ -38,6 +38,7 @@ namespace AtelierView
                     dataGridView.DataSource = list;
                     dataGridView.Columns[0].Visible = false;
                     dataGridView.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                    dataGridView.Columns[1].Visible = false;
                     dataGridView.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                     dataGridView.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                     dataGridView.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
@@ -52,13 +53,13 @@ namespace AtelierView
             }
         }
 
-        private void КомпонентыToolStripMenuItem_Click(object sender, EventArgs e)
+        private void компонентыToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var form = Program.Container.Resolve<FormComponents>();
             form.ShowDialog();
         }
 
-        private void ИзделияToolStripMenuItem_Click(object sender, EventArgs e)
+        private void изделияToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var form = Program.Container.Resolve<FormDress>();
             form.ShowDialog();
