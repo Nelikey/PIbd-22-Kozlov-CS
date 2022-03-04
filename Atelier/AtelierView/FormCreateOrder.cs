@@ -15,11 +15,15 @@ namespace AtelierView
 {
     public partial class FormCreateOrder : Form
     {
+#pragma warning disable CS0246 // Не удалось найти тип или имя пространства имен "IDressLogic" (возможно, отсутствует директива using или ссылка на сборку).
         private readonly IDressLogic _logicP;
+#pragma warning restore CS0246 // Не удалось найти тип или имя пространства имен "IDressLogic" (возможно, отсутствует директива using или ссылка на сборку).
 
         private readonly IOrderLogic _logicO;
 
+#pragma warning disable CS0246 // Не удалось найти тип или имя пространства имен "IDressLogic" (возможно, отсутствует директива using или ссылка на сборку).
         public FormCreateOrder(IDressLogic logicP, IOrderLogic logicO)
+#pragma warning restore CS0246 // Не удалось найти тип или имя пространства имен "IDressLogic" (возможно, отсутствует директива using или ссылка на сборку).
         {
             InitializeComponent();
             _logicP = logicP;

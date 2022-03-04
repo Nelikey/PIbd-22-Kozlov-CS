@@ -33,15 +33,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AtelierBusinessLogic">
-      <HintPath>..\..\AtelierBusinessLogic\AtelierBusinessLogic\bin\Debug\netcoreapp3.1\AtelierBusinessLogic.dll</HintPath>
-    </Reference>
-    <Reference Include="AtelierContracts">
-      <HintPath>..\..\AtelierContracts\AtelierContracts\bin\Debug\netcoreapp3.1\AtelierContracts.dll</HintPath>
-    </Reference>
-    <Reference Include="AtelierListImplement">
-      <HintPath>..\..\AtelierListImplement\AtelierListImplement\bin\Debug\netcoreapp3.1\AtelierListImplement.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
@@ -82,17 +73,17 @@
     <Compile Include="FormCreateOrder.Designer.cs">
       <DependentUpon>FormCreateOrder.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormMain.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FormMain.Designer.cs">
-      <DependentUpon>FormMain.cs</DependentUpon>
-    </Compile>
     <Compile Include="FormDress.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FormDress.Designer.cs">
       <DependentUpon>FormDress.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormMain.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormMain.Designer.cs">
+      <DependentUpon>FormMain.cs</DependentUpon>
     </Compile>
     <Compile Include="FormDressComponent.cs">
       <SubType>Form</SubType>
@@ -111,11 +102,11 @@
     <EmbeddedResource Include="FormCreateOrder.resx">
       <DependentUpon>FormCreateOrder.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormMain.resx">
-      <DependentUpon>FormMain.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="FormDress.resx">
       <DependentUpon>FormDress.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormMain.resx">
+      <DependentUpon>FormMain.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormDressComponent.resx">
       <DependentUpon>FormDressComponent.cs</DependentUpon>
@@ -142,6 +133,20 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AtelierBusinessLogic\AtelierBusinessLogic\AtelierBusinessLogic.csproj">
+      <Project>{c602f443-5d51-49df-a740-f0a01a855f72}</Project>
+      <Name>AtelierBusinessLogic</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AtelierContracts\AtelierContracts\AtelierContracts.csproj">
+      <Project>{e4269173-0959-4b67-ad8d-6baa628b28ac}</Project>
+      <Name>AtelierContracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AtelierListImplement\AtelierListImplement\AtelierListImplement.csproj">
+      <Project>{288c1a39-c63a-43ce-b8f7-1ac76719abaa}</Project>
+      <Name>AtelierListImplement</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

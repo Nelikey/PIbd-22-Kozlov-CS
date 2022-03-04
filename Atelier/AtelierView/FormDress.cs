@@ -18,13 +18,17 @@ namespace AtelierView
     {
         public int Id { set { id = value; } }
 
+#pragma warning disable CS0246 // Не удалось найти тип или имя пространства имен "IDressLogic" (возможно, отсутствует директива using или ссылка на сборку).
         private readonly IDressLogic _logic;
+#pragma warning restore CS0246 // Не удалось найти тип или имя пространства имен "IDressLogic" (возможно, отсутствует директива using или ссылка на сборку).
 
         private int? id;
 
         private Dictionary<int, (string, int)> dressComponents;
 
+#pragma warning disable CS0246 // Не удалось найти тип или имя пространства имен "IDressLogic" (возможно, отсутствует директива using или ссылка на сборку).
         public FormDress(IDressLogic logic)
+#pragma warning restore CS0246 // Не удалось найти тип или имя пространства имен "IDressLogic" (возможно, отсутствует директива using или ссылка на сборку).
         {
             InitializeComponent();
             _logic = logic;
