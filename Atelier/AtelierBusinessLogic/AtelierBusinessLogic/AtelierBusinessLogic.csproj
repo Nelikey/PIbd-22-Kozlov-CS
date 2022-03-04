@@ -5,9 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Reference Include="AtelierContracts">
-      <HintPath>..\..\AtelierContracts\AtelierContracts\bin\Debug\netcoreapp3.1\AtelierContracts.dll</HintPath>
-    </Reference>
+    <PackageReference Include="Unity" Version="5.11.10" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\AtelierContracts\AtelierContracts\AtelierContracts.csproj" />
   </ItemGroup>
 
 </Project>

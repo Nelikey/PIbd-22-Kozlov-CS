@@ -5,12 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Reference Include="AtelierBusinessLogic">
-      <HintPath>..\..\AtelierBusinessLogic\AtelierBusinessLogic\bin\Debug\netcoreapp3.1\AtelierBusinessLogic.dll</HintPath>
-    </Reference>
-    <Reference Include="AtelierContracts">
-      <HintPath>..\..\AtelierContracts\AtelierContracts\bin\Debug\netcoreapp3.1\AtelierContracts.dll</HintPath>
-    </Reference>
+    <PackageReference Include="Unity" Version="5.11.10" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\AtelierBusinessLogic\AtelierBusinessLogic\AtelierBusinessLogic.csproj" />
+    <ProjectReference Include="..\..\AtelierContracts\AtelierContracts\AtelierContracts.csproj" />
   </ItemGroup>
 
 </Project>

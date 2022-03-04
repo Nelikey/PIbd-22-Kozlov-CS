@@ -8,10 +8,11 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>AtelierView</RootNamespace>
     <AssemblyName>AtelierView</AssemblyName>
-    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -33,6 +34,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AtelierBusinessLogic">
+      <HintPath>..\AtelierListImplement\AtelierListImplement\bin\Debug\netcoreapp3.1\AtelierBusinessLogic.dll</HintPath>
+    </Reference>
+    <Reference Include="AtelierContracts">
+      <HintPath>..\AtelierContracts\AtelierContracts\bin\Debug\netcoreapp3.1\AtelierContracts.dll</HintPath>
+    </Reference>
+    <Reference Include="AtelierListImplement">
+      <HintPath>..\AtelierListImplement\AtelierListImplement\bin\Debug\netcoreapp3.1\AtelierListImplement.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
@@ -49,6 +59,7 @@
     <Reference Include="System.Xml" />
     <Reference Include="Unity.Abstractions, Version=5.11.7.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
       <HintPath>..\packages\Unity.5.11.10\lib\net48\Unity.Abstractions.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
     </Reference>
     <Reference Include="Unity.Container, Version=5.11.11.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
       <HintPath>..\packages\Unity.5.11.10\lib\net48\Unity.Container.dll</HintPath>
@@ -119,6 +130,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -133,20 +145,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\AtelierBusinessLogic\AtelierBusinessLogic\AtelierBusinessLogic.csproj">
-      <Project>{c602f443-5d51-49df-a740-f0a01a855f72}</Project>
-      <Name>AtelierBusinessLogic</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\AtelierContracts\AtelierContracts\AtelierContracts.csproj">
-      <Project>{e4269173-0959-4b67-ad8d-6baa628b28ac}</Project>
-      <Name>AtelierContracts</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\AtelierListImplement\AtelierListImplement\AtelierListImplement.csproj">
-      <Project>{288c1a39-c63a-43ce-b8f7-1ac76719abaa}</Project>
-      <Name>AtelierListImplement</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
