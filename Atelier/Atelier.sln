@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30907.101
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AtelierView", "AtelierView\AtelierView.csproj", "{F90AC39B-25AA-44EE-9CA1-FCCAFB878294}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AtelierView2", "AtelierView\AtelierView2.csproj", "{F90AC39B-25AA-44EE-9CA1-FCCAFB878294}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AtelierBusinessLogic", "AtelierBusinessLogic\AtelierBusinessLogic\AtelierBusinessLogic.csproj", "{C602F443-5D51-49DF-A740-F0A01A855F72}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -14,7 +14,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AtelierContracts", "Atelier
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AtelierListImplement", "AtelierListImplement\AtelierListImplement\AtelierListImplement.csproj", "{288C1A39-C63A-43CE-B8F7-1AC76719ABAA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AtelierView1", "AtelierView1\AtelierView1.csproj", "{DF3F8BD5-E2D4-4F01-AA5B-4F9C087D98DE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AtelierView", "AtelierView1\AtelierView.csproj", "{DF3F8BD5-E2D4-4F01-AA5B-4F9C087D98DE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
