@@ -13,17 +13,17 @@ using AtelierContracts.BusinessLogicsContracts;
 
 namespace AtelierView
 {
-    public partial class FormComponents : Form
+    public partial class FormDresses : Form
     {
-        private readonly IComponentLogic _logic;
+        private readonly IDressLogic logic;
 
-        public FormComponents(IComponentLogic logic)
+        public FormDresses(IDressLogic _logic)
         {
             InitializeComponent();
-            _logic = logic;
+            logic = _logic;
         }
 
-        private void FormComponents_Load(object sender, EventArgs e)
+        private void FormDresses_Load(object sender, EventArgs e)
         {
             LoadData();
         }
@@ -32,12 +32,13 @@ namespace AtelierView
         {
             try
             {
-                var list = _logic.Read(null);
+                var list = logic.Read(null);
                 if (list != null)
                 {
                     dataGridView.DataSource = list;
                     dataGridView.Columns[0].Visible = false;
                     dataGridView.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                    dataGridView.Columns[3].Visible = false;
                 }
             }
             catch (Exception ex)
@@ -48,23 +49,17 @@ namespace AtelierView
 
         private void buttonAdd_Click(object sender, EventArgs e)
         {
-            var form = Program.Container.Resolve<FormComponent>();
-            if (form.ShowDialog() == DialogResult.OK)
-            {
-                LoadData();
-            }
+            var form = Program.Container.Resolve<FormDress>();
+            if (form.ShowDialog() == DialogResult.OK) LoadData();
         }
 
         private void buttonUpd_Click(object sender, EventArgs e)
         {
             if (dataGridView.SelectedRows.Count == 1)
             {
-                var form = Program.Container.Resolve<FormComponent>();
+                var form = Program.Container.Resolve<FormDress>();
                 form.Id = Convert.ToInt32(dataGridView.SelectedRows[0].Cells[0].Value);
-                if (form.ShowDialog() == DialogResult.OK)
-                {
-                    LoadData();
-                }
+                if (form.ShowDialog() == DialogResult.OK) LoadData();
             }
         }
 
@@ -72,18 +67,16 @@ namespace AtelierView
         {
             if (dataGridView.SelectedRows.Count == 1)
             {
-                if (MessageBox.Show("Удалить запись", "Вопрос", MessageBoxButtons.YesNo,
-               MessageBoxIcon.Question) == DialogResult.Yes)
+                if (MessageBox.Show("Удалить запись", "Вопрос", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
                     int id = Convert.ToInt32(dataGridView.SelectedRows[0].Cells[0].Value);
                     try
                     {
-                        _logic.Delete(new ComponentBindingModel { Id = id });
+                        logic.Delete(new DressBindingModel { Id = id });
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK,
-                       MessageBoxIcon.Error);
+                        MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK);
                     }
                     LoadData();
                 }

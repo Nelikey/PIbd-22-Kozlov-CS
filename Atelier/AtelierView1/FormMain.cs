@@ -61,7 +61,7 @@ namespace AtelierView
 
         private void изделияToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var form = Program.Container.Resolve<FormDress>();
+            var form = Program.Container.Resolve<FormDresses>();
             form.ShowDialog();
         }
 
