@@ -97,7 +97,7 @@ namespace AtelierView
             this.Controls.Add(this.buttonAdd);
             this.Controls.Add(this.dataGridView);
             this.Name = "FormDresses";
-            this.Text = "FormDresses";
+            this.Text = "Платья";
             this.Load += new System.EventHandler(this.FormDresses_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();
             this.ResumeLayout(false);
