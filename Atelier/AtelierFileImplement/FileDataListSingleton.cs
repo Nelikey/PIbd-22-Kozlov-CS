@@ -33,11 +33,11 @@ namespace AtelierFileImplement
             return instance;
         }
 
-        public void SaveData()
+        public static void SaveData()
         {
-            SaveComponents();
-            SaveOrders();
-            SaveDresses();
+            GetInstance().SaveComponents();
+            GetInstance().SaveOrders();
+            GetInstance().SaveDresses();
         }
 
         private List<Component> LoadComponents()

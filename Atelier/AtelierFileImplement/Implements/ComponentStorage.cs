@@ -27,8 +27,7 @@ namespace AtelierFileImplement.Implements
         {
             if (model == null) return null;
 
-            return source.Components.Where(rec => rec.ComponentName.Contains(model.ComponentName))
-                .Select(CreateModel).ToList();
+            return source.Components.Where(rec => rec.ComponentName.Contains(model.ComponentName)).Select(CreateModel).ToList();
         }
 
         public ComponentViewModel GetElement(ComponentBindingModel model)

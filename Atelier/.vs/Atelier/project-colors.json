@@ -1,0 +1,26 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "df3f8bd5-e2d4-4f01-aa5b-4f9c087d98de": {
+      "ProjectGuid": "df3f8bd5-e2d4-4f01-aa5b-4f9c087d98de",
+      "DisplayName": "AtelierView",
+      "ColorIndex": 0
+    },
+    "161623c2-6dd8-418e-a01f-3e812b72719f": {
+      "ProjectGuid": "161623c2-6dd8-418e-a01f-3e812b72719f",
+      "DisplayName": "AtelierFileImplement",
+      "ColorIndex": 1
+    },
+    "288c1a39-c63a-43ce-b8f7-1ac76719abaa": {
+      "ProjectGuid": "288c1a39-c63a-43ce-b8f7-1ac76719abaa",
+      "DisplayName": "AtelierListImplement",
+      "ColorIndex": 2
+    },
+    "e4269173-0959-4b67-ad8d-6baa628b28ac": {
+      "ProjectGuid": "e4269173-0959-4b67-ad8d-6baa628b28ac",
+      "DisplayName": "AtelierContracts",
+      "ColorIndex": 3
+    }
+  },
+  "NextColorIndex": 4
+}
