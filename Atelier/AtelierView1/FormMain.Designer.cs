@@ -33,6 +33,8 @@ namespace AtelierView
             this.справочникиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.компонентыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.изделияToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.складыStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.пополнитьскладtoolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dataGridView = new System.Windows.Forms.DataGridView();
             this.buttonCreateOrder = new System.Windows.Forms.Button();
             this.buttonTakeOrder = new System.Windows.Forms.Button();
@@ -57,7 +59,9 @@ namespace AtelierView
             // 
             this.справочникиToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.компонентыToolStripMenuItem,
-            this.изделияToolStripMenuItem});
+            this.изделияToolStripMenuItem,
+            this.складыStripMenuItem,
+            this.пополнитьскладtoolStripMenuItem});
             this.справочникиToolStripMenuItem.Name = "справочникиToolStripMenuItem";
             this.справочникиToolStripMenuItem.Size = new System.Drawing.Size(94, 20);
             this.справочникиToolStripMenuItem.Text = "Справочники";
@@ -65,16 +69,30 @@ namespace AtelierView
             // компонентыToolStripMenuItem
             // 
             this.компонентыToolStripMenuItem.Name = "компонентыToolStripMenuItem";
-            this.компонентыToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.компонентыToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
             this.компонентыToolStripMenuItem.Text = "Компоненты";
             this.компонентыToolStripMenuItem.Click += new System.EventHandler(this.компонентыToolStripMenuItem_Click);
             // 
             // изделияToolStripMenuItem
             // 
             this.изделияToolStripMenuItem.Name = "изделияToolStripMenuItem";
-            this.изделияToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.изделияToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
             this.изделияToolStripMenuItem.Text = "Изделия";
             this.изделияToolStripMenuItem.Click += new System.EventHandler(this.изделияToolStripMenuItem_Click);
+            // 
+            // складыStripMenuItem
+            // 
+            this.складыStripMenuItem.Name = "складыStripMenuItem";
+            this.складыStripMenuItem.Size = new System.Drawing.Size(170, 22);
+            this.складыStripMenuItem.Text = "Склады";
+            this.складыStripMenuItem.Click += new System.EventHandler(this.складыToolStripMenuItem_Click);
+            // 
+            // пополнитьскладtoolStripMenuItem
+            // 
+            this.пополнитьскладtoolStripMenuItem.Name = "пополнитьскладtoolStripMenuItem";
+            this.пополнитьскладtoolStripMenuItem.Size = new System.Drawing.Size(170, 22);
+            this.пополнитьскладtoolStripMenuItem.Text = "Пополнить склад";
+            this.пополнитьскладtoolStripMenuItem.Click += new System.EventHandler(this.пополнитьСкладToolStripMenuItem_Click);
             // 
             // dataGridView
             // 
@@ -140,13 +158,13 @@ namespace AtelierView
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1025, 450);
+            this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.buttonRef);
             this.Controls.Add(this.buttonIssuedOrder);
             this.Controls.Add(this.buttonOrderReady);
             this.Controls.Add(this.buttonTakeOrder);
             this.Controls.Add(this.buttonCreateOrder);
             this.Controls.Add(this.dataGridView);
-            this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "FormMain";
             this.Text = "Ателье";
@@ -171,5 +189,7 @@ namespace AtelierView
         private System.Windows.Forms.Button buttonOrderReady;
         private System.Windows.Forms.Button buttonIssuedOrder;
         private System.Windows.Forms.Button buttonRef;
+        private System.Windows.Forms.ToolStripMenuItem складыStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem пополнитьскладtoolStripMenuItem;
     }
 }
