@@ -6,9 +6,9 @@
       "DisplayName": "AtelierView",
       "ColorIndex": 0
     },
-    "161623c2-6dd8-418e-a01f-3e812b72719f": {
-      "ProjectGuid": "161623c2-6dd8-418e-a01f-3e812b72719f",
-      "DisplayName": "AtelierFileImplement",
+    "e4269173-0959-4b67-ad8d-6baa628b28ac": {
+      "ProjectGuid": "e4269173-0959-4b67-ad8d-6baa628b28ac",
+      "DisplayName": "AtelierContracts",
       "ColorIndex": 1
     },
     "288c1a39-c63a-43ce-b8f7-1ac76719abaa": {
@@ -16,9 +16,9 @@
       "DisplayName": "AtelierListImplement",
       "ColorIndex": 2
     },
-    "e4269173-0959-4b67-ad8d-6baa628b28ac": {
-      "ProjectGuid": "e4269173-0959-4b67-ad8d-6baa628b28ac",
-      "DisplayName": "AtelierContracts",
+    "c602f443-5d51-49df-a740-f0a01a855f72": {
+      "ProjectGuid": "c602f443-5d51-49df-a740-f0a01a855f72",
+      "DisplayName": "AtelierBusinessLogic",
       "ColorIndex": 3
     }
   },
