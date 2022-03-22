@@ -40,6 +40,8 @@ namespace AtelierBusinessLogic.BusinessLogics
             }
             else
             {
+                if (element != null)
+                    throw new Exception("Такой склад уже существует");
                 model.CreationDate = DateTime.Now;
                 warehouseStorage.Insert(model);
             }

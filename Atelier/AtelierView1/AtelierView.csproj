@@ -13,6 +13,7 @@
   <ItemGroup>
     <ProjectReference Include="..\AtelierBusinessLogic\AtelierBusinessLogic\AtelierBusinessLogic.csproj" />
     <ProjectReference Include="..\AtelierContracts\AtelierContracts\AtelierContracts.csproj" />
+    <ProjectReference Include="..\AtelierFileImplement\AtelierFileImplement.csproj" />
     <ProjectReference Include="..\AtelierListImplement\AtelierListImplement\AtelierListImplement.csproj" />
   </ItemGroup>
 

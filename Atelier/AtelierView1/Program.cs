@@ -1,7 +1,8 @@
 using AtelierBusinessLogic.BusinessLogics;
 using AtelierContracts.BusinessLogicsContracts;
 using AtelierContracts.StoragesContracts;
-using AtelierListImplement.Implements;
+using AtelierFileImplement;
+using AtelierFileImplement.Implements;
 using System;
 using System.Windows.Forms;
 using Unity;
@@ -35,6 +36,7 @@ namespace AtelierView
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(Container.Resolve<FormMain>());
+            FileDataListSingleton.SaveData();
         }
 
         private static IUnityContainer BuildUnityContainer()

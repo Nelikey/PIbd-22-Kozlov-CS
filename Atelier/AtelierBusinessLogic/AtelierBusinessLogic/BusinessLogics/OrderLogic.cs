@@ -13,29 +13,31 @@ namespace AtelierBusinessLogic.BusinessLogics
 {
     public class OrderLogic : IOrderLogic
     {
-        private readonly IOrderStorage _orderStorage;
+        private readonly IOrderStorage orderStorage;
+        private readonly IWarehouseStorage warehouseStorage;
 
-        public OrderLogic(IOrderStorage orderStorage)
+        public OrderLogic(IOrderStorage _orderStorage, IWarehouseStorage _warehouseStorage)
         {
-            _orderStorage = orderStorage;
+            orderStorage = _orderStorage;
+            warehouseStorage = _warehouseStorage;
         }
 
         public List<OrderViewModel> Read(OrderBindingModel model)
         {
             if (model == null)
             {
-                return _orderStorage.GetFullList();
+                return orderStorage.GetFullList();
             }
             if (model.Id.HasValue)
             {
-                return new List<OrderViewModel> { _orderStorage.GetElement(model) };
+                return new List<OrderViewModel> { orderStorage.GetElement(model) };
             }
-            return _orderStorage.GetFilteredList(model);
+            return orderStorage.GetFilteredList(model);
         }
 
         public void CreateOrder(CreateOrderBindingModel model)
         {
-            _orderStorage.Insert(new OrderBindingModel
+            orderStorage.Insert(new OrderBindingModel
             {
                 DressId = model.DressId,
                 Count = model.Count,
@@ -47,7 +49,7 @@ namespace AtelierBusinessLogic.BusinessLogics
 
         public void TakeOrderInWork(ChangeStatusBindingModel model)
         {
-            var order = _orderStorage.GetElement(new OrderBindingModel { Id = model.OrderId });
+            var order = orderStorage.GetElement(new OrderBindingModel { Id = model.OrderId });
             if (order == null)
             {
                 throw new Exception("Заказ не найден");
@@ -56,7 +58,7 @@ namespace AtelierBusinessLogic.BusinessLogics
             {
                 throw new Exception("Заказ не в статусе \"Принят\"");
             }
-            _orderStorage.Update(new OrderBindingModel
+            OrderBindingModel elem = new OrderBindingModel
             {
                 Id = order.Id,
                 DressId = order.DressId,
@@ -65,12 +67,14 @@ namespace AtelierBusinessLogic.BusinessLogics
                 DateCreate = order.DateCreate,
                 DateImplement = DateTime.Now,
                 Status = OrderStatus.Выполняется
-            });
+            };
+            if (!warehouseStorage.IsFilled(elem)) throw new Exception("На складах недостаёт компонентов");
+            orderStorage.Update(elem);
         }
 
         public void FinishOrder(ChangeStatusBindingModel model)
         {
-            var order = _orderStorage.GetElement(new OrderBindingModel { Id = model.OrderId });
+            var order = orderStorage.GetElement(new OrderBindingModel { Id = model.OrderId });
             if (order == null)
             {
                 throw new Exception("Заказ не найден");
@@ -79,7 +83,7 @@ namespace AtelierBusinessLogic.BusinessLogics
             {
                 throw new Exception("Заказ не в статусе \"Выполняется\"");
             }
-            _orderStorage.Update(new OrderBindingModel
+            orderStorage.Update(new OrderBindingModel
             {
                 Id = order.Id,
                 DressId = order.DressId,
@@ -93,7 +97,7 @@ namespace AtelierBusinessLogic.BusinessLogics
 
         public void DeliveryOrder(ChangeStatusBindingModel model)
         {
-            var order = _orderStorage.GetElement(new OrderBindingModel { Id = model.OrderId });
+            var order = orderStorage.GetElement(new OrderBindingModel { Id = model.OrderId });
             if (order == null)
             {
                 throw new Exception("Заказ не найден");
@@ -102,7 +106,7 @@ namespace AtelierBusinessLogic.BusinessLogics
             {
                 throw new Exception("Заказ не в статусе \"Готов\"");
             }
-            _orderStorage.Update(new OrderBindingModel
+            orderStorage.Update(new OrderBindingModel
             {
                 Id = order.Id,
                 DressId = order.DressId,

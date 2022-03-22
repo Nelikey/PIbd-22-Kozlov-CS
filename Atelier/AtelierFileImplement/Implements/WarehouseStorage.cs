@@ -1,96 +1,89 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
+using System.Linq;
 using AtelierContracts.BindingModels;
 using AtelierContracts.StoragesContracts;
 using AtelierContracts.ViewModels;
-using AtelierListImplement.Models;
+using AtelierFileImplement.Models;
 
-namespace AtelierListImplement.Implements
+namespace AtelierFileImplement.Implements
 {
     public class WarehouseStorage : IWarehouseStorage
     {
-        private readonly DataListSingleton source;
+        private readonly FileDataListSingleton source;
 
         public WarehouseStorage()
         {
-            source = DataListSingleton.GetInstance();
+            source = FileDataListSingleton.GetInstance();
         }
 
         public List<WarehouseViewModel> GetFullList()
         {
-            var result = new List<WarehouseViewModel>();
-            foreach (var warehouse in source.Warehouses)
-            {
-                result.Add(CreateModel(warehouse));
-            }
-            return result;
+            return source.Warehouses.Select(CreateModel).ToList();
         }
 
         public List<WarehouseViewModel> GetFilteredList(WarehouseBindingModel model)
         {
             if (model == null) return null;
-
-            var result = new List<WarehouseViewModel>();
-            foreach (var warehouse in source.Warehouses)
-            {
-                if (warehouse.Name.Contains(model.Name))
-                {
-                    result.Add(CreateModel(warehouse));
-                }
-            }
-            return result;
+            return source.Warehouses.Where(rec => rec.Name.Contains(model.Name))
+                .Select(CreateModel).ToList();
         }
 
         public WarehouseViewModel GetElement(WarehouseBindingModel model)
         {
             if (model == null) return null;
-
-            foreach (var warehouse in source.Warehouses)
-            {
-                if (warehouse.Id == model.Id)
-                {
-                    return CreateModel(warehouse);
-                }
-            }
-            return null;
+            var warehouse = source.Warehouses
+                .FirstOrDefault(rec => rec.Name == model.Name || rec.Id == model.Id);
+            return warehouse != null ? CreateModel(warehouse) : null;
         }
 
         public void Insert(WarehouseBindingModel model)
         {
-            var tempWarehouse = new Warehouse { Id = 1, StoredComponents = new Dictionary<int, int>() };
-            foreach (var warehouse in source.Warehouses)
-            {
-                if (warehouse.Id >= tempWarehouse.Id) tempWarehouse.Id = warehouse.Id + 1;
-            }
-            source.Warehouses.Add(CreateModel(model, tempWarehouse));
+            int maxId = source.Warehouses.Count > 0 ? source.Warehouses.Max(rec => rec.Id) : 0;
+            var element = new Warehouse { Id = maxId + 1, StoredComponents = new Dictionary<int, int>() };
+            source.Warehouses.Add(CreateModel(model, element));
         }
 
         public void Update(WarehouseBindingModel model)
         {
-            Warehouse tempWarehouse = null;
-            foreach (var warehouse in source.Warehouses)
-            {
-                if (warehouse.Id == model.Id) tempWarehouse = warehouse;
-            }
-
-            if (tempWarehouse == null) throw new Exception("Элемент не найден");
-
-            CreateModel(model, tempWarehouse);
+            var element = source.Warehouses.FirstOrDefault(rec => rec.Id == model.Id);
+            if (element == null) throw new Exception("Элемент не найден");
+            CreateModel(model, element);
         }
 
         public void Delete(WarehouseBindingModel model)
         {
-            for (int i = 0; i < source.Warehouses.Count; ++i)
+            Warehouse element = source.Warehouses.FirstOrDefault(rec => rec.Id == model.Id);
+            if (element != null) source.Warehouses.Remove(element);
+            else throw new Exception("Элемент не найден");
+        }
+
+        public bool IsFilled(OrderBindingModel order)
+        {
+            if (source.Dresses.FirstOrDefault(rec => rec.Id == order.DressId).DressComponents.Any(past =>
+             (source.Warehouses.Where(war => war.StoredComponents.ContainsKey(past.Key)).
+                    Sum(war => { war.StoredComponents.TryGetValue(past.Key, out int k); return k; }) < (past.Value * order.Count))
+            )) return false;
+
+            foreach (var component in source.Dresses.FirstOrDefault(rec => rec.Id == order.DressId).DressComponents)
             {
-                if (source.Warehouses[i].Id == model.Id)
+                int required = component.Value * order.Count;
+                foreach (var warehouse in source.Warehouses)
                 {
-                    source.Warehouses.RemoveAt(i);
-                    return;
+                    if (warehouse.StoredComponents.Remove(component.Key, out int stored))
+                    {
+                        if (required > stored) required -= stored;
+                        else
+                        {
+                            stored -= required;
+                            warehouse.StoredComponents.Add(component.Key, stored);
+                            break;
+                        }
+                    }
                 }
             }
-            throw new Exception("Элемент не найден");
+            return true;
         }
 
         private static Warehouse CreateModel(WarehouseBindingModel model, Warehouse warehouse)
@@ -145,10 +138,5 @@ namespace AtelierListImplement.Implements
                 StoredComponents = warehouseComponents
             };
         }
-
-        public bool IsFilled(OrderBindingModel order)
-        {
-            return false;
-        }      
     }
 }
