@@ -72,7 +72,7 @@ namespace AtelierFileImplement.Implements
 
         private OrderViewModel CreateModel(Order order)
         {
-            string dressName = source.Dresses.FirstOrDefault(rec => rec.Id == order.DressId).DressName;
+            string dressName = source.Dresses.FirstOrDefault(rec => rec.Id == order.DressId)?.DressName;
 
             return new OrderViewModel
             {

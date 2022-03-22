@@ -14,7 +14,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AtelierListImplement", "Ate
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AtelierView", "AtelierView1\AtelierView.csproj", "{DF3F8BD5-E2D4-4F01-AA5B-4F9C087D98DE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AtelierFileImplement", "AtelierFileImplement\AtelierFileImplement.csproj", "{161623C2-6DD8-418E-A01F-3E812B72719F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AtelierFileImplement", "AtelierFileImplement\AtelierFileImplement.csproj", "{161623C2-6DD8-418E-A01F-3E812B72719F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AtelierDatabaseImplement", "AtelierDatabaseImplement\AtelierDatabaseImplement.csproj", "{358F28F1-2F5F-4BE8-9C0A-47AC79A7641D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -42,6 +44,10 @@ Global
 		{161623C2-6DD8-418E-A01F-3E812B72719F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{161623C2-6DD8-418E-A01F-3E812B72719F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{161623C2-6DD8-418E-A01F-3E812B72719F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{358F28F1-2F5F-4BE8-9C0A-47AC79A7641D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{358F28F1-2F5F-4BE8-9C0A-47AC79A7641D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{358F28F1-2F5F-4BE8-9C0A-47AC79A7641D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{358F28F1-2F5F-4BE8-9C0A-47AC79A7641D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

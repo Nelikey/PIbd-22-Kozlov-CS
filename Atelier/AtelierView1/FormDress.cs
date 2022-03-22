@@ -138,37 +138,44 @@ namespace AtelierView
 
         private void buttonSave_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(textBoxName.Text))
-            {
-                MessageBox.Show("Заполните название", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-            if (string.IsNullOrEmpty(textBoxPrice.Text))
-            {
-                MessageBox.Show("Заполните цену", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-            if (dressComponents == null || dressComponents.Count == 0)
-            {
-                MessageBox.Show("Заполните компоненты", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
             try
             {
-                _logic.CreateOrUpdate(new DressBindingModel
+                if (string.IsNullOrEmpty(textBoxName.Text))
                 {
-                    Id = id,
-                    DressName = textBoxName.Text,
-                    Price = Convert.ToDecimal(textBoxPrice.Text),
-                    DressComponents = dressComponents
-                });
-                MessageBox.Show("Сохранение прошло успешно", "Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                DialogResult = DialogResult.OK;
-                Close();
+                    MessageBox.Show("Заполните название", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                if (string.IsNullOrEmpty(textBoxPrice.Text))
+                {
+                    MessageBox.Show("Заполните цену", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                if (dressComponents == null || dressComponents.Count == 0)
+                {
+                    MessageBox.Show("Заполните компоненты", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                try
+                {
+                    _logic.CreateOrUpdate(new DressBindingModel
+                    {
+                        Id = id,
+                        DressName = textBoxName.Text,
+                        Price = Convert.ToDecimal(textBoxPrice.Text),
+                        DressComponents = dressComponents
+                    });
+                    MessageBox.Show("Сохранение прошло успешно", "Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    DialogResult = DialogResult.OK;
+                    Close();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
-            catch (Exception ex)
+            catch(Exception ex)
             {
-                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Console.WriteLine(ex.InnerException.Message);
             }
         }
 
