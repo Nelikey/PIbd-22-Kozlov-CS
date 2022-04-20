@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AtelierBusinessLogic\AtelierBusinessLogic\AtelierBusinessLogic.csproj" />
+    <ProjectReference Include="..\AtelierContracts\AtelierContracts\AtelierContracts.csproj" />
+    <ProjectReference Include="..\AtelierDatabaseImplement\AtelierDatabaseImplement.csproj" />
+    <ProjectReference Include="..\AtelierRestApi\AtelierRestApi.csproj" />
+  </ItemGroup>
+
+</Project>

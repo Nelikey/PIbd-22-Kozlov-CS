@@ -10,6 +10,7 @@ namespace AtelierContracts.BindingModels
     public class CreateOrderBindingModel
     {
         public int DressId { get; set; }
+        public int ClientId { get; set; }
         public int Count { get; set; }
         public decimal Sum { get; set; }
     }

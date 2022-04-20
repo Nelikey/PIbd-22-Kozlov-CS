@@ -14,6 +14,11 @@ namespace AtelierContracts.ViewModels
 
         public int DressId { get; set; }
 
+        public int ClientId { get; set; }
+
+        [DisplayName("ФИО клиента")]
+        public string ClientFIO { get; set; }
+
         [DisplayName("Изделие")]
         public string DressName { get; set; }
 

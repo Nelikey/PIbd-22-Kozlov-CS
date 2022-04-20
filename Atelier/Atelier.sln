@@ -16,7 +16,16 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AtelierView", "AtelierView1
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AtelierFileImplement", "AtelierFileImplement\AtelierFileImplement.csproj", "{161623C2-6DD8-418E-A01F-3E812B72719F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AtelierDatabaseImplement", "AtelierDatabaseImplement\AtelierDatabaseImplement.csproj", "{358F28F1-2F5F-4BE8-9C0A-47AC79A7641D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AtelierDatabaseImplement", "AtelierDatabaseImplement\AtelierDatabaseImplement.csproj", "{358F28F1-2F5F-4BE8-9C0A-47AC79A7641D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AtelierRestApi", "AtelierRestApi\AtelierRestApi.csproj", "{9F359A5D-F9C7-4EC9-8A66-71A4BD2A176A}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C602F443-5D51-49DF-A740-F0A01A855F72} = {C602F443-5D51-49DF-A740-F0A01A855F72}
+		{E4269173-0959-4B67-AD8D-6BAA628B28AC} = {E4269173-0959-4B67-AD8D-6BAA628B28AC}
+		{358F28F1-2F5F-4BE8-9C0A-47AC79A7641D} = {358F28F1-2F5F-4BE8-9C0A-47AC79A7641D}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AtelierClientApp", "APIClient\AtelierClientApp.csproj", "{FFB51618-B66F-4728-BC20-D653DC0CC80E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -48,6 +57,14 @@ Global
 		{358F28F1-2F5F-4BE8-9C0A-47AC79A7641D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{358F28F1-2F5F-4BE8-9C0A-47AC79A7641D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{358F28F1-2F5F-4BE8-9C0A-47AC79A7641D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9F359A5D-F9C7-4EC9-8A66-71A4BD2A176A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9F359A5D-F9C7-4EC9-8A66-71A4BD2A176A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9F359A5D-F9C7-4EC9-8A66-71A4BD2A176A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9F359A5D-F9C7-4EC9-8A66-71A4BD2A176A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FFB51618-B66F-4728-BC20-D653DC0CC80E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FFB51618-B66F-4728-BC20-D653DC0CC80E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FFB51618-B66F-4728-BC20-D653DC0CC80E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FFB51618-B66F-4728-BC20-D653DC0CC80E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
