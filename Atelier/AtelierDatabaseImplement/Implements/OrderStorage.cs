@@ -27,8 +27,10 @@ namespace AtelierDatabaseImplement.Implements
             }
 
             using var context = new AtelierDatabase();
-            return context.Orders.Include(rec => rec.Dress).
-                Where(rec => rec.DressId == model.DressId).Select(CreateModel).ToList();
+
+            return context.Orders.Include(rec => rec.Dress).Where(rec => (model.Id.HasValue && rec.Id.Equals(model.Id)) ||
+                (model.DateFrom.HasValue && model.DateTo.HasValue &&
+                rec.CreationDate >= model.DateFrom && rec.CreationDate <= model.DateTo)).Select(CreateModel).ToList();
         }
 
         public OrderViewModel GetElement(OrderBindingModel model)

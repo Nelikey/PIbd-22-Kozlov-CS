@@ -1,6 +1,8 @@
 using AtelierBusinessLogic.BusinessLogics;
 using AtelierContracts.BusinessLogicsContracts;
 using AtelierContracts.StoragesContracts;
+using AtelierBusinessLogic.OfficePackage;
+using AtelierBusinessLogic.OfficePackage.Implements;
 using AtelierFileImplement;
 using AtelierDatabaseImplement.Implements;
 using System;
@@ -42,18 +44,17 @@ namespace AtelierView
         private static IUnityContainer BuildUnityContainer()
         {
             var currentContainer = new UnityContainer();
-            currentContainer.RegisterType<IComponentStorage,
-            ComponentStorage>(new HierarchicalLifetimeManager());
-            currentContainer.RegisterType<IOrderStorage, OrderStorage>(new
-            HierarchicalLifetimeManager());
-            currentContainer.RegisterType<IDressStorage, DressStorage>(new
-            HierarchicalLifetimeManager());
-            currentContainer.RegisterType<IComponentLogic, ComponentLogic>(new
-            HierarchicalLifetimeManager());
-            currentContainer.RegisterType<IOrderLogic, OrderLogic>(new
-            HierarchicalLifetimeManager());
-            currentContainer.RegisterType<IDressLogic, DressLogic>(new
-            HierarchicalLifetimeManager());
+            currentContainer.RegisterType<IComponentStorage, ComponentStorage>(new HierarchicalLifetimeManager());
+            currentContainer.RegisterType<IOrderStorage, OrderStorage>(new HierarchicalLifetimeManager());
+            currentContainer.RegisterType<IDressStorage, DressStorage>(new HierarchicalLifetimeManager());
+            currentContainer.RegisterType<IComponentLogic, ComponentLogic>(new HierarchicalLifetimeManager());
+            currentContainer.RegisterType<IOrderLogic, OrderLogic>(new HierarchicalLifetimeManager());
+            currentContainer.RegisterType<IDressLogic, DressLogic>(new HierarchicalLifetimeManager());
+            currentContainer.RegisterType<IReportLogic, ReportLogic>(new HierarchicalLifetimeManager());
+            currentContainer.RegisterType<AbstractSaveToExcel, SaveToExcel>(new HierarchicalLifetimeManager());
+            currentContainer.RegisterType<AbstractSaveToWord, SaveToWord>(new HierarchicalLifetimeManager());
+            currentContainer.RegisterType<AbstractSaveToPdf, SaveToPdf>(new HierarchicalLifetimeManager());
+
             return currentContainer;
         }
     }
