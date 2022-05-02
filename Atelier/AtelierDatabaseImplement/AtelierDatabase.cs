@@ -16,5 +16,6 @@ namespace AtelierDatabaseImplement
         public virtual DbSet<Dress> Dresses { set; get; }
         public virtual DbSet<DressComponent> DressComponents { set; get; }
         public virtual DbSet<Order> Orders { set; get; }
+        public virtual DbSet<Client> Clients { set; get; }
     }
 }

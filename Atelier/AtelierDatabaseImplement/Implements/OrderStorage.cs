@@ -28,9 +28,12 @@ namespace AtelierDatabaseImplement.Implements
 
             using var context = new AtelierDatabase();
 
-            return context.Orders.Include(rec => rec.Dress).Where(rec => (model.Id.HasValue && rec.Id.Equals(model.Id)) ||
-                (model.DateFrom.HasValue && model.DateTo.HasValue &&
-                rec.CreationDate >= model.DateFrom && rec.CreationDate <= model.DateTo)).Select(CreateModel).ToList();
+            return context.Orders.Where(rec => (!model.DateFrom.HasValue && !model.DateTo.HasValue
+               && rec.CreationDate.Date == model.DateCreate.Date) ||
+               (model.DateFrom.HasValue && model.DateTo.HasValue && rec.CreationDate.Date >= model.DateFrom.Value.Date
+               && rec.CreationDate.Date <= model.DateTo.Value.Date) ||
+               (model.ClientId.HasValue && rec.ClientId == model.ClientId))
+               .Include(rec => rec.Dress).Include(rec => rec.Client).Select(CreateModel).ToList();
         }
 
         public OrderViewModel GetElement(OrderBindingModel model)
@@ -41,7 +44,7 @@ namespace AtelierDatabaseImplement.Implements
             }
 
             using var context = new AtelierDatabase();
-            var order = context.Orders.Include(rec => rec.Dress).
+            var order = context.Orders.Include(rec => rec.Dress).Include(rec => rec.Client).
                 FirstOrDefault(rec => rec.DressId == model.DressId || rec.Id == model.Id);
             return order != null ? CreateModel(order) : null;
         }
@@ -49,10 +52,18 @@ namespace AtelierDatabaseImplement.Implements
         public void Insert(OrderBindingModel model)
         {
             using var context = new AtelierDatabase();
-            Order order = new Order();
-            CreateModel(model, order, context);
-            context.Orders.Add(order);
-            context.SaveChanges();
+            using var transaction = context.Database.BeginTransaction();
+            try
+            {
+                context.Orders.Add(CreateModel(model, new Order()));
+                context.SaveChanges();
+                transaction.Commit();
+            }
+            catch
+            {
+                transaction.Rollback();
+                throw;
+            }
         }
 
         public void Update(OrderBindingModel model)
@@ -82,9 +93,23 @@ namespace AtelierDatabaseImplement.Implements
             }
         }
 
+        private static Order CreateModel(OrderBindingModel model, Order order)
+        {
+            order.DressId = model.DressId;
+            order.ClientId = (int)model.ClientId;
+            order.Count = model.Count;
+            order.Sum = model.Sum;
+            order.Status = model.Status;
+            order.CreationDate = model.DateCreate;
+            order.ImplementDate = model.DateImplement;
+            return order;
+        }
+
         private static Order CreateModel(OrderBindingModel model, Order order, AtelierDatabase context)
         {
             order.DressId = model.DressId;
+            order.ClientId = (int)model.ClientId;
+            order.Client = context.Clients.FirstOrDefault(rec => rec.Id == model.ClientId);
             order.Dress = context.Dresses.FirstOrDefault(rec => rec.Id == model.DressId);
             order.Count = model.Count;
             order.Sum = model.Sum;
@@ -96,10 +121,18 @@ namespace AtelierDatabaseImplement.Implements
 
         private static OrderViewModel CreateModel(Order order)
         {
+            int? clientId = null;
+
+            if (order.Client != null)
+            {
+                clientId = order.ClientId;
+            }
+
             return new OrderViewModel
             {
                 Id = order.Id,
                 DressId = order.DressId,
+                ClientId = order.ClientId,
                 DressName = order.Dress.DressName,
                 Count = order.Count,
                 Sum = order.Sum,

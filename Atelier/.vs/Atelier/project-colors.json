@@ -20,7 +20,27 @@
       "ProjectGuid": "c602f443-5d51-49df-a740-f0a01a855f72",
       "DisplayName": "AtelierBusinessLogic",
       "ColorIndex": 3
+    },
+    "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3": {
+      "ProjectGuid": "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3",
+      "DisplayName": "Прочие файлы",
+      "ColorIndex": -1
+    },
+    "358f28f1-2f5f-4be8-9c0a-47ac79a7641d": {
+      "ProjectGuid": "358f28f1-2f5f-4be8-9c0a-47ac79a7641d",
+      "DisplayName": "AtelierDatabaseImplement",
+      "ColorIndex": 4
+    },
+    "ffb51618-b66f-4728-bc20-d653dc0cc80e": {
+      "ProjectGuid": "ffb51618-b66f-4728-bc20-d653dc0cc80e",
+      "DisplayName": "AtelierClientApp",
+      "ColorIndex": 5
+    },
+    "9f359a5d-f9c7-4ec9-8a66-71a4bd2a176a": {
+      "ProjectGuid": "9f359a5d-f9c7-4ec9-8a66-71a4bd2a176a",
+      "DisplayName": "AtelierRestApi",
+      "ColorIndex": 6
     }
   },
-  "NextColorIndex": 4
+  "NextColorIndex": 7
 }
