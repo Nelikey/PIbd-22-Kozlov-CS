@@ -9,6 +9,7 @@ using System;
 using System.Windows.Forms;
 using Unity;
 using Unity.Lifetime;
+using AtelierContracts.StorageContracts;
 
 namespace AtelierView
 {
