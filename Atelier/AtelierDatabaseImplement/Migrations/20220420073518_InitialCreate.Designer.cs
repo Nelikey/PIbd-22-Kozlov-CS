@@ -10,7 +10,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AtelierDatabaseImplement.Migrations
 {
     [DbContext(typeof(AtelierDatabase))]
+<<<<<<<< HEAD:Atelier/AtelierDatabaseImplement/Migrations/20220420073518_InitialCreate.Designer.cs
     [Migration("20220420073518_InitialCreate")]
+========
+    [Migration("20220420012214_InitialCreate")]
+>>>>>>>> 52277858c85a3f4f77ffa57fa76a01968e62ff88:Atelier/AtelierDatabaseImplement/Migrations/20220420012214_InitialCreate.Designer.cs
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
