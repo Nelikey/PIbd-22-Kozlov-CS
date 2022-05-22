@@ -1,4 +1,6 @@
-﻿using System;
+﻿using AtelierContracts.BindingModels;
+using AtelierContracts.BusinessLogicsContracts;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -6,31 +8,44 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using AtelierContracts.BindingModels;
-using AtelierContracts.BusinessLogicsContracts;
-using Unity;
 using System.Windows.Forms;
+using Unity;
 
 namespace AtelierView
 {
     public partial class FormMain : Form
     {
-        private readonly IOrderLogic _orderLogic;
-
         private readonly IReportLogic _reportLogic;
-
-        public FormMain(IOrderLogic orderLogic, IReportLogic reportLogic)
+        private readonly IOrderLogic _orderLogic;
+        private readonly IImplementerLogic _implementerLogic;
+        private readonly IWorkProcess _workProcces;
+        public FormMain(IOrderLogic orderLogic, IReportLogic reportLogic, 
+            IWorkProcess workProcess, IImplementerLogic implementerLogic)
         {
             InitializeComponent();
             _orderLogic = orderLogic;
             _reportLogic = reportLogic;
+            _implementerLogic = implementerLogic;
+            _workProcces = workProcess;
+        }
+
+        private void toolStripMenuItemComponent_Click(object sender, EventArgs e)
+        {
+            var form = Program.Container.Resolve<FormComponents>();
+            form.ShowDialog();
+        }
+
+        private void toolStripMenuItemDresss_Click(object sender, EventArgs e)
+        {
+            var form = Program.Container.Resolve<FormDresses>();
+            form.ShowDialog();
+
         }
 
         private void FormMain_Load(object sender, EventArgs e)
         {
             LoadData();
         }
-
         private void LoadData()
         {
             try
@@ -42,30 +57,19 @@ namespace AtelierView
                     dataGridView.Columns[0].Visible = false;
                     dataGridView.Columns[1].Visible = false;
                     dataGridView.Columns[2].Visible = false;
-                    dataGridView.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-                    dataGridView.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-                    dataGridView.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-                    dataGridView.Columns[5].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-                    dataGridView.Columns[6].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-                    dataGridView.Columns[7].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                    dataGridView.Columns[3].Visible = false;
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK,
+               MessageBoxIcon.Error);
             }
         }
 
-        private void компонентыToolStripMenuItem_Click(object sender, EventArgs e)
+        private void buttonUpdate_Click(object sender, EventArgs e)
         {
-            var form = Program.Container.Resolve<FormComponents>();
-            form.ShowDialog();
-        }
-
-        private void изделияToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            var form = Program.Container.Resolve<FormDresses>();
-            form.ShowDialog();
+            LoadData();
         }
 
         private void buttonCreateOrder_Click(object sender, EventArgs e)
@@ -75,55 +79,11 @@ namespace AtelierView
             LoadData();
         }
 
-        private void buttonTakeOrder_Click(object sender, EventArgs e)
-        {
-            if (dataGridView.SelectedRows.Count == 1)
-            {
-                int id = Convert.ToInt32(dataGridView.SelectedRows[0].Cells[0].Value);
-                try
-                {
-                    _orderLogic.TakeOrderInWork(new ChangeStatusBindingModel
-                    {
-                        OrderId = id
-                    });
-                    LoadData();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK,
-                   MessageBoxIcon.Error);
-                }
-            }
-
-        }
-
-        private void buttonOrderReady_Click(object sender, EventArgs e)
-        {
-            if (dataGridView.SelectedRows.Count == 1)
-            {
-                int id = Convert.ToInt32(dataGridView.SelectedRows[0].Cells[0].Value);
-                try
-                {
-                    _orderLogic.FinishOrder(new ChangeStatusBindingModel
-                    {
-                        OrderId = id
-                    });
-                    LoadData();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK,
-                   MessageBoxIcon.Error);
-                }
-            }
-        }
-
         private void buttonIssuedOrder_Click(object sender, EventArgs e)
         {
             if (dataGridView.SelectedRows.Count == 1)
             {
-                int id = Convert.ToInt32(dataGridView.SelectedRows[0].Cells[0].Value);
-                try
+                int id = Convert.ToInt32(dataGridView.SelectedRows[0].Cells[0].Value); try
                 {
                     _orderLogic.DeliveryOrder(new ChangeStatusBindingModel
                     {
@@ -139,17 +99,12 @@ namespace AtelierView
             }
         }
 
-        private void buttonRef_Click(object sender, EventArgs e)
-        {
-            LoadData();
-        }
-
-        private void списоккомпонентовtoolStripMenuItem_Click(object sender, EventArgs e)
+        private void toolStripMenuItemDresssList_Click(object sender, EventArgs e)
         {
             using var dialog = new SaveFileDialog { Filter = "docx|*.docx" };
             if (dialog.ShowDialog() == DialogResult.OK)
             {
-                _reportLogic.SaveComponentsToWordFile(new ReportBindingModel
+                _reportLogic.SaveDressesToWordFile(new ReportBindingModel
                 {
                     FileName = dialog.FileName
                 });
@@ -158,21 +113,33 @@ namespace AtelierView
             }
         }
 
-        private void компонентыпоизделиямtoolStripMenuItem_Click(object sender, EventArgs e)
+        private void toolStripMenuItemDressComponent_Click(object sender, EventArgs e)
         {
             var form = Program.Container.Resolve<FormReportDressComponents>();
             form.ShowDialog();
         }
 
-        private void списокзаказовtoolStripMenuItem_Click(object sender, EventArgs e)
+        private void toolStripMenuItemOrdersList_Click(object sender, EventArgs e)
         {
             var form = Program.Container.Resolve<FormReportOrders>();
             form.ShowDialog();
         }
 
-        private void клиентыtoolStripMenuItem_Click(object sender, EventArgs e)
+        private void toolStripMenuItemClients_Click(object sender, EventArgs e)
         {
             var form = Program.Container.Resolve<FormClients>();
+            form.ShowDialog();
+        }
+
+        private void toolStripMenuItemStartWorks_Click(object sender, EventArgs e)
+        {
+            _workProcces.DoWork(_implementerLogic,_orderLogic);
+            LoadData();
+        }
+
+        private void toolStripMenuItemImplementers_Click(object sender, EventArgs e)
+        {
+            var form = Program.Container.Resolve<FormImplementers>();
             form.ShowDialog();
         }
     }
