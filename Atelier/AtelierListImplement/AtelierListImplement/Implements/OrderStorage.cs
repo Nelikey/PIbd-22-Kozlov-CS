@@ -1,10 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using AtelierContracts.BindingModels;
-using AtelierContracts.StoragesContracts;
+﻿using AtelierContracts.BindingModels;
+using AtelierContracts.Enums;
+using AtelierContracts.StorageContracts;
 using AtelierContracts.ViewModels;
 using AtelierListImplement.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace AtelierListImplement.Implements
 {
@@ -17,31 +20,17 @@ namespace AtelierListImplement.Implements
             source = DataListSingleton.GetInstance();
         }
 
-        public List<OrderViewModel> GetFullList()
+        public void Delete(OrderBindingModel model)
         {
-            var result = new List<OrderViewModel>();
-            foreach (var order in source.Orders)
+            for (int i = 0; i < source.Orders.Count; ++i)
             {
-                result.Add(CreateModel(order));
+                if (source.Orders[i].Id == model.Id)
+                {
+                    source.Orders.RemoveAt(i);
+                    return;
+                }
             }
-            return result;
-        }
-
-        public List<OrderViewModel> GetFilteredList(OrderBindingModel model)
-        {
-            if (model == null)
-            {
-                return null;
-            }
-            var result = new List<OrderViewModel>();
-            foreach (var order in source.Orders)
-            {
-                if ((!model.DateFrom.HasValue && !model.DateTo.HasValue && order.DateCreate.Date == model.DateCreate.Date) ||
-                   (model.DateFrom.HasValue && model.DateTo.HasValue && order.DateCreate >= model.DateFrom && order.DateCreate <= model.DateTo) ||
-                   (model.ClientId.HasValue && order.ClientId == model.ClientId))
-                   result.Add(CreateModel(order));
-            }
-            return result;
+            throw new Exception("Элемент не найден");
         }
 
         public OrderViewModel GetElement(OrderBindingModel model)
@@ -52,7 +41,7 @@ namespace AtelierListImplement.Implements
             }
             foreach (var order in source.Orders)
             {
-                if (order.Id == model.Id)
+                if (order.Id == model.Id || order.DressId == model.DressId)
                 {
                     return CreateModel(order);
                 }
@@ -60,9 +49,39 @@ namespace AtelierListImplement.Implements
             return null;
         }
 
+        public List<OrderViewModel> GetFilteredList(OrderBindingModel model)
+        {
+            if (model == null)
+            {
+                return null;
+            }
+            List<OrderViewModel> result = new List<OrderViewModel>();
+            foreach (var order in source.Orders)
+            {
+                if ((!model.DateFrom.HasValue && !model.DateTo.HasValue && order.DateCreate == model.DateCreate) ||
+                    (model.DateFrom.HasValue && model.DateTo.HasValue && order.DateCreate.Date >= model.DateFrom.Value.Date && order.DateCreate.Date <= model.DateTo.Value.Date) ||
+                    (model.ClientId.HasValue && order.ClientId == model.ClientId) || (model.SearchStatus.HasValue && model.SearchStatus.Value == order.Status) ||
+                    (model.ImplementerId.HasValue && order.ImplementerId == model.ImplementerId && model.Status == order.Status))
+                {
+                    result.Add(CreateModel(order));
+                }
+            }
+            return result;
+        }
+
+        public List<OrderViewModel> GetFullList()
+        {
+            List<OrderViewModel> result = new List<OrderViewModel>();
+            foreach (var order in source.Orders)
+            {
+                result.Add(CreateModel(order));
+            }
+            return result;
+        }
+
         public void Insert(OrderBindingModel model)
         {
-            var tempOrder = new Order
+            Order tempOrder = new Order
             {
                 Id = 1
             };
@@ -88,44 +107,18 @@ namespace AtelierListImplement.Implements
             }
             if (tempOrder == null)
             {
-                throw new Exception("Заказ не найден");
+                throw new Exception("Элемент не найден");
             }
             CreateModel(model, tempOrder);
         }
-
-        public void Delete(OrderBindingModel model)
-        {
-            for (int i = 0; i < source.Orders.Count; ++i)
-            {
-                if (source.Orders[i].Id == model.Id)
-                {
-                    source.Orders.RemoveAt(i);
-                    return;
-                }
-            }
-            throw new Exception("Заказ не найден");
-        }
-
-        private Order CreateModel(OrderBindingModel model, Order order)
-        {
-            order.DressId = model.DressId;
-            order.ClientId = (int)model.ClientId;
-            order.Count = model.Count;
-            order.Sum = model.Sum;
-            order.Status = model.Status;
-            order.DateCreate = model.DateCreate;
-            order.DateImplement = model.DateImplement;
-            return order;
-        }
-
         private OrderViewModel CreateModel(Order order)
         {
-            string DressName = null;
-            for (int j = 0; j < source.Dresses.Count; ++j)
+            string dressName = null;
+            for (int i = 0; i < source.Dresses.Count; i++)
             {
-                if (source.Dresses[j].Id == order.DressId)
+                if (source.Dresses[i].Id == order.DressId)
                 {
-                    DressName = source.Dresses[j].DressName;
+                    dressName = source.Dresses[i].DressName;
                     break;
                 }
             }
@@ -138,19 +131,42 @@ namespace AtelierListImplement.Implements
                     break;
                 }
             }
+            string implementerFIO = null;
+            for (int i = 0; i < source.Implementers.Count; i++)
+            {
+                if (source.Implementers[i].Id == order.ImplementerId)
+                {
+                    implementerFIO = source.Implementers[i].ImplementerFIO;
+                    break;
+                }
+            }
             return new OrderViewModel
             {
-                Id = order.Id,
+                Id = (int)order.Id,
                 DressId = order.DressId,
-                DressName = DressName,
                 ClientId = order.ClientId,
+                ImplementerId = order.ImplementerId,
+                DressName = dressName,
                 ClientFIO = clientFIO,
+                ImplementerFIO = implementerFIO,
                 Count = order.Count,
                 Sum = order.Sum,
-                Status = order.Status.ToString(),
+                Status = Enum.GetName(order.Status),
                 DateCreate = order.DateCreate,
                 DateImplement = order.DateImplement
             };
+        }
+        private Order CreateModel(OrderBindingModel model, Order order)
+        {
+            order.DressId = model.DressId;
+            order.ClientId = (int)model.ClientId;
+            order.ImplementerId = model.ImplementerId;
+            order.Count = model.Count;
+            order.Sum = model.Sum;
+            order.Status = model.Status;
+            order.DateCreate = model.DateCreate;
+            order.DateImplement = model.DateImplement;
+            return order;
         }
     }
 }

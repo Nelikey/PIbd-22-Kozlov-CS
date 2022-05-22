@@ -50,6 +50,21 @@ namespace AtelierDatabaseImplement.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Implementers",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ImplementerFIO = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    WorkingTime = table.Column<int>(type: "int", nullable: false),
+                    PauseTime = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Implementers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "DressComponents",
                 columns: table => new
                 {
@@ -84,11 +99,12 @@ namespace AtelierDatabaseImplement.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     DressId = table.Column<int>(type: "int", nullable: false),
                     ClientId = table.Column<int>(type: "int", nullable: false),
+                    ImplementerId = table.Column<int>(type: "int", nullable: true),
                     Count = table.Column<int>(type: "int", nullable: false),
                     Sum = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Status = table.Column<int>(type: "int", nullable: false),
-                    CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ImplementDate = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    DateCreate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DateImplement = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -105,6 +121,12 @@ namespace AtelierDatabaseImplement.Migrations
                         principalTable: "Dresses",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Orders_Implementers_ImplementerId",
+                        column: x => x.ImplementerId,
+                        principalTable: "Implementers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
@@ -126,6 +148,11 @@ namespace AtelierDatabaseImplement.Migrations
                 name: "IX_Orders_DressId",
                 table: "Orders",
                 column: "DressId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Orders_ImplementerId",
+                table: "Orders",
+                column: "ImplementerId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -144,6 +171,9 @@ namespace AtelierDatabaseImplement.Migrations
 
             migrationBuilder.DropTable(
                 name: "Dresses");
+
+            migrationBuilder.DropTable(
+                name: "Implementers");
         }
     }
 }

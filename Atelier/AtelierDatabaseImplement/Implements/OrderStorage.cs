@@ -1,39 +1,32 @@
-﻿using System;
+﻿using AtelierContracts.BindingModels;
+using AtelierContracts.StorageContracts;
+using AtelierContracts.ViewModels;
+using AtelierDatabaseImplement.Models;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using AtelierContracts.BindingModels;
-using AtelierContracts.StoragesContracts;
-using AtelierContracts.ViewModels;
-using AtelierDatabaseImplement.Models;
-using Microsoft.EntityFrameworkCore;
 
 namespace AtelierDatabaseImplement.Implements
 {
     public class OrderStorage : IOrderStorage
     {
-        public List<OrderViewModel> GetFullList()
+        public void Delete(OrderBindingModel model)
         {
+            
             using var context = new AtelierDatabase();
-            return context.Orders.Include(rec => rec.Dress).Select(CreateModel).ToList();
-        }
-
-        public List<OrderViewModel> GetFilteredList(OrderBindingModel model)
-        {
-            if (model == null)
+            Order element = context.Orders.FirstOrDefault(rec => rec.Id == model.Id);
+            if (element != null)
             {
-                return null;
+                context.Orders.Remove(element);
+                context.SaveChanges();
             }
-
-            using var context = new AtelierDatabase();
-
-            return context.Orders.Where(rec => (!model.DateFrom.HasValue && !model.DateTo.HasValue
-               && rec.CreationDate.Date == model.DateCreate.Date) ||
-               (model.DateFrom.HasValue && model.DateTo.HasValue && rec.CreationDate.Date >= model.DateFrom.Value.Date
-               && rec.CreationDate.Date <= model.DateTo.Value.Date) ||
-               (model.ClientId.HasValue && rec.ClientId == model.ClientId))
-               .Include(rec => rec.Dress).Include(rec => rec.Client).Select(CreateModel).ToList();
+            else
+            {
+                throw new Exception("Элемент не найден");
+            }
         }
 
         public OrderViewModel GetElement(OrderBindingModel model)
@@ -42,11 +35,50 @@ namespace AtelierDatabaseImplement.Implements
             {
                 return null;
             }
-
             using var context = new AtelierDatabase();
-            var order = context.Orders.Include(rec => rec.Dress).Include(rec => rec.Client).
-                FirstOrDefault(rec => rec.DressId == model.DressId || rec.Id == model.Id);
+            var order = context.Orders
+            .Include(rec => rec.Dress)
+            .Include(rec => rec.Client)
+            .Include(rec => rec.Implementer)
+            .FirstOrDefault(rec => rec.Id == model.Id ||
+            rec.Id == model.Id);
             return order != null ? CreateModel(order) : null;
+        }
+
+        public List<OrderViewModel> GetFilteredList(OrderBindingModel model)
+        {
+            if (model == null)
+            {
+                return null;
+            }
+            using var context = new AtelierDatabase();
+            return context.Orders
+               .Include(rec => rec.Dress)
+               .Include(rec => rec.Client)
+               .Include(rec => rec.Implementer)
+               .Where(rec => (!model.DateFrom.HasValue && !model.DateTo.HasValue &&
+                    rec.DateCreate.Date == model.DateCreate.Date) ||
+                    (model.DateFrom.HasValue && model.DateTo.HasValue &&
+                    rec.DateCreate.Date >= model.DateFrom.Value.Date && rec.DateCreate.Date <=
+                    model.DateTo.Value.Date) ||
+                    (model.ClientId.HasValue && rec.ClientId == model.ClientId) ||
+                    (model.SearchStatus.HasValue && model.SearchStatus.Value ==
+                    rec.Status) ||
+                    (model.ImplementerId.HasValue && rec.ImplementerId == model.ImplementerId && model.Status == rec.Status))
+               .Select(CreateModel)
+               .ToList();
+        }
+
+        public List<OrderViewModel> GetFullList()
+        {
+            using var context = new AtelierDatabase();
+            return context.Orders
+            .Include(rec => rec.Dress)
+            .Include(rec => rec.Client)
+            .Include(rec => rec.Implementer)
+            .ToList()
+            .Select(CreateModel)
+            .ToList();
         }
 
         public void Insert(OrderBindingModel model)
@@ -69,76 +101,54 @@ namespace AtelierDatabaseImplement.Implements
         public void Update(OrderBindingModel model)
         {
             using var context = new AtelierDatabase();
-            var element = context.Orders.FirstOrDefault(rec => rec.Id == model.Id);
-            if (element == null)
+            using var transaction = context.Database.BeginTransaction();
+            try
             {
-                throw new Exception("Элемент не найден");
-            }
-            CreateModel(model, element, context);
-            context.SaveChanges();
-        }
-
-        public void Delete(OrderBindingModel model)
-        {
-            using var context = new AtelierDatabase();
-            var element = context.Orders.FirstOrDefault(rec => rec.Id == model.Id);
-            if (element != null)
-            {
-                context.Remove(element);
+                var element = context.Orders.FirstOrDefault(rec => rec.Id ==
+                model.Id);
+                if (element == null)
+                {
+                    throw new Exception("Элемент не найден");
+                }
+                CreateModel(model, element);
                 context.SaveChanges();
+                transaction.Commit();
             }
-            else
+            catch
             {
-                throw new Exception("Элемент не найден");
+                transaction.Rollback();
+                throw;
             }
         }
-
         private static Order CreateModel(OrderBindingModel model, Order order)
         {
             order.DressId = model.DressId;
             order.ClientId = (int)model.ClientId;
+            order.ImplementerId = model.ImplementerId;
             order.Count = model.Count;
             order.Sum = model.Sum;
             order.Status = model.Status;
-            order.CreationDate = model.DateCreate;
-            order.ImplementDate = model.DateImplement;
+            order.DateCreate = model.DateCreate;
+            order.DateImplement = model.DateImplement;
             return order;
         }
-
-        private static Order CreateModel(OrderBindingModel model, Order order, AtelierDatabase context)
-        {
-            order.DressId = model.DressId;
-            order.ClientId = (int)model.ClientId;
-            order.Client = context.Clients.FirstOrDefault(rec => rec.Id == model.ClientId);
-            order.Dress = context.Dresses.FirstOrDefault(rec => rec.Id == model.DressId);
-            order.Count = model.Count;
-            order.Sum = model.Sum;
-            order.Status = model.Status;
-            order.CreationDate = model.DateCreate;
-            order.ImplementDate = model.DateImplement;
-            return order;
-        }
-
         private static OrderViewModel CreateModel(Order order)
         {
-            int? clientId = null;
-
-            if (order.Client != null)
-            {
-                clientId = order.ClientId;
-            }
-
+            
             return new OrderViewModel
             {
                 Id = order.Id,
                 DressId = order.DressId,
-                ClientId = order.ClientId,
                 DressName = order.Dress.DressName,
+                ClientFIO = order.Client.ClientFIO,
+                ClientId = order.ClientId,
+                ImplementerId = order.ImplementerId,
+                ImplementerFIO = order.ImplementerId.HasValue ? order.Implementer.ImplementerFIO : string.Empty,
                 Count = order.Count,
                 Sum = order.Sum,
-                Status = order.Status.ToString(),
-                DateCreate = order.CreationDate,
-                DateImplement = order.ImplementDate
+                Status = Enum.GetName(order.Status),
+                DateCreate = order.DateCreate,
+                DateImplement = order.DateImplement
             };
         }
     }

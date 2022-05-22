@@ -16,7 +16,7 @@ namespace AtelierDatabaseImplement.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.15")
+                .HasAnnotation("ProductVersion", "5.0.17")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("AtelierDatabaseImplement.Models.Client", b =>
@@ -103,6 +103,28 @@ namespace AtelierDatabaseImplement.Migrations
                     b.ToTable("DressComponents");
                 });
 
+            modelBuilder.Entity("AtelierDatabaseImplement.Models.Implementer", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ImplementerFIO")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("PauseTime")
+                        .HasColumnType("int");
+
+                    b.Property<int>("WorkingTime")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Implementers");
+                });
+
             modelBuilder.Entity("AtelierDatabaseImplement.Models.Order", b =>
                 {
                     b.Property<int>("Id")
@@ -116,14 +138,17 @@ namespace AtelierDatabaseImplement.Migrations
                     b.Property<int>("Count")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("CreationDate")
+                    b.Property<DateTime>("DateCreate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DateImplement")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("DressId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime?>("ImplementDate")
-                        .HasColumnType("datetime2");
+                    b.Property<int?>("ImplementerId")
+                        .HasColumnType("int");
 
                     b.Property<int>("Status")
                         .HasColumnType("int");
@@ -136,6 +161,8 @@ namespace AtelierDatabaseImplement.Migrations
                     b.HasIndex("ClientId");
 
                     b.HasIndex("DressId");
+
+                    b.HasIndex("ImplementerId");
 
                     b.ToTable("Orders");
                 });
@@ -173,9 +200,15 @@ namespace AtelierDatabaseImplement.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("AtelierDatabaseImplement.Models.Implementer", "Implementer")
+                        .WithMany("Orders")
+                        .HasForeignKey("ImplementerId");
+
                     b.Navigation("Client");
 
                     b.Navigation("Dress");
+
+                    b.Navigation("Implementer");
                 });
 
             modelBuilder.Entity("AtelierDatabaseImplement.Models.Client", b =>
@@ -192,6 +225,11 @@ namespace AtelierDatabaseImplement.Migrations
                 {
                     b.Navigation("DressComponents");
 
+                    b.Navigation("Orders");
+                });
+
+            modelBuilder.Entity("AtelierDatabaseImplement.Models.Implementer", b =>
+                {
                     b.Navigation("Orders");
                 });
 #pragma warning restore 612, 618
