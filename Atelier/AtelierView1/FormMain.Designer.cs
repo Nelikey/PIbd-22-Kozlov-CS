@@ -44,6 +44,7 @@ namespace AtelierView
             this.buttonCreateOrder = new System.Windows.Forms.Button();
             this.buttonIssuedOrder = new System.Windows.Forms.Button();
             this.buttonUpdate = new System.Windows.Forms.Button();
+            this.toolStripMenuItemMessages = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.SuspendLayout();
@@ -66,7 +67,8 @@ namespace AtelierView
             this.toolStripMenuItemComponent,
             this.toolStripMenuItemDresses,
             this.toolStripMenuItemClients,
-            this.toolStripMenuItemImplementers});
+            this.toolStripMenuItemImplementers,
+            this.toolStripMenuItemMessages});
             this.toolStripMenuItemManual.Name = "toolStripMenuItemManual";
             this.toolStripMenuItemManual.Size = new System.Drawing.Size(94, 20);
             this.toolStripMenuItemManual.Text = "Справочники";
@@ -74,28 +76,28 @@ namespace AtelierView
             // toolStripMenuItemComponent
             // 
             this.toolStripMenuItemComponent.Name = "toolStripMenuItemComponent";
-            this.toolStripMenuItemComponent.Size = new System.Drawing.Size(149, 22);
+            this.toolStripMenuItemComponent.Size = new System.Drawing.Size(180, 22);
             this.toolStripMenuItemComponent.Text = "Компоненты";
             this.toolStripMenuItemComponent.Click += new System.EventHandler(this.toolStripMenuItemComponent_Click);
             // 
             // toolStripMenuItemDresses
             // 
             this.toolStripMenuItemDresses.Name = "toolStripMenuItemDresses";
-            this.toolStripMenuItemDresses.Size = new System.Drawing.Size(149, 22);
+            this.toolStripMenuItemDresses.Size = new System.Drawing.Size(180, 22);
             this.toolStripMenuItemDresses.Text = "Платье";
-            this.toolStripMenuItemDresses.Click += new System.EventHandler(this.toolStripMenuItemDresss_Click);
+            this.toolStripMenuItemDresses.Click += new System.EventHandler(this.toolStripMenuItemDresses_Click);
             // 
             // toolStripMenuItemClients
             // 
             this.toolStripMenuItemClients.Name = "toolStripMenuItemClients";
-            this.toolStripMenuItemClients.Size = new System.Drawing.Size(149, 22);
+            this.toolStripMenuItemClients.Size = new System.Drawing.Size(180, 22);
             this.toolStripMenuItemClients.Text = "Клиенты";
             this.toolStripMenuItemClients.Click += new System.EventHandler(this.toolStripMenuItemClients_Click);
             // 
             // toolStripMenuItemImplementers
             // 
             this.toolStripMenuItemImplementers.Name = "toolStripMenuItemImplementers";
-            this.toolStripMenuItemImplementers.Size = new System.Drawing.Size(149, 22);
+            this.toolStripMenuItemImplementers.Size = new System.Drawing.Size(180, 22);
             this.toolStripMenuItemImplementers.Text = "Исполнители";
             this.toolStripMenuItemImplementers.Click += new System.EventHandler(this.toolStripMenuItemImplementers_Click);
             // 
@@ -113,14 +115,14 @@ namespace AtelierView
             // 
             this.toolStripMenuItemDressesList.Name = "toolStripMenuItemDressesList";
             this.toolStripMenuItemDressesList.Size = new System.Drawing.Size(238, 22);
-            this.toolStripMenuItemDressesList.Text = "Список платьев";
-            this.toolStripMenuItemDressesList.Click += new System.EventHandler(this.toolStripMenuItemDresssList_Click);
+            this.toolStripMenuItemDressesList.Text = "Список мороженого";
+            this.toolStripMenuItemDressesList.Click += new System.EventHandler(this.toolStripMenuItemDressesList_Click);
             // 
             // toolStripMenuItemDressComponents
             // 
             this.toolStripMenuItemDressComponents.Name = "toolStripMenuItemDressComponents";
             this.toolStripMenuItemDressComponents.Size = new System.Drawing.Size(238, 22);
-            this.toolStripMenuItemDressComponents.Text = "Компоненты по платьям";
+            this.toolStripMenuItemDressComponents.Text = "Компоненты по мороженым";
             this.toolStripMenuItemDressComponents.Click += new System.EventHandler(this.toolStripMenuItemDressComponent_Click);
             // 
             // toolStripMenuItemOrdersList
@@ -177,6 +179,13 @@ namespace AtelierView
             this.buttonUpdate.UseVisualStyleBackColor = true;
             this.buttonUpdate.Click += new System.EventHandler(this.buttonUpdate_Click);
             // 
+            // toolStripMenuItemMessages
+            // 
+            this.toolStripMenuItemMessages.Name = "toolStripMenuItemMessages";
+            this.toolStripMenuItemMessages.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuItemMessages.Text = "Письма";
+            this.toolStripMenuItemMessages.Click += new System.EventHandler(this.toolStripMenuItemMessages_Click);
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -216,5 +225,6 @@ namespace AtelierView
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemClients;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemStartWorks;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemImplementers;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemMessages;
     }
 }

@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AtelierDatabaseImplement.Migrations
 {
     [DbContext(typeof(AtelierDatabase))]
-    [Migration("20220517210406_InitialCreate")]
+    [Migration("20220517213214_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -127,6 +127,33 @@ namespace AtelierDatabaseImplement.Migrations
                     b.ToTable("Implementers");
                 });
 
+            modelBuilder.Entity("AtelierDatabaseImplement.Models.MessageInfo", b =>
+                {
+                    b.Property<string>("MessageId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Body")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("ClientId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("DateDelivery")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("SenderName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Subject")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("MessageId");
+
+                    b.HasIndex("ClientId");
+
+                    b.ToTable("Messages");
+                });
+
             modelBuilder.Entity("AtelierDatabaseImplement.Models.Order", b =>
                 {
                     b.Property<int>("Id")
@@ -188,6 +215,15 @@ namespace AtelierDatabaseImplement.Migrations
                     b.Navigation("Dress");
                 });
 
+            modelBuilder.Entity("AtelierDatabaseImplement.Models.MessageInfo", b =>
+                {
+                    b.HasOne("AtelierDatabaseImplement.Models.Client", "Client")
+                        .WithMany("MessageInfo")
+                        .HasForeignKey("ClientId");
+
+                    b.Navigation("Client");
+                });
+
             modelBuilder.Entity("AtelierDatabaseImplement.Models.Order", b =>
                 {
                     b.HasOne("AtelierDatabaseImplement.Models.Client", "Client")
@@ -215,6 +251,8 @@ namespace AtelierDatabaseImplement.Migrations
 
             modelBuilder.Entity("AtelierDatabaseImplement.Models.Client", b =>
                 {
+                    b.Navigation("MessageInfo");
+
                     b.Navigation("Order");
                 });
 

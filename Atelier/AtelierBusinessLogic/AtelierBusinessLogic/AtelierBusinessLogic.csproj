@@ -1,18 +1,17 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="DocumentFormat.OpenXml" Version="2.16.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.TagHelpers" Version="2.2.0" />
-    <PackageReference Include="PdfSharp.MigraDoc.Standard" Version="1.51.15" />
-    <PackageReference Include="Unity" Version="5.11.10" />
+    <PackageReference Include="DocumentFormat.OpenXml" Version="2.15.0" />
+    <PackageReference Include="MailKit" Version="3.2.0" />
+    <PackageReference Include="PDFsharp-MigraDoc-GDI" Version="1.50.5147" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\AtelierContracts\AtelierContracts\AtelierContracts.csproj" />
+    <ProjectReference Include="..\AtelierContracts\AtelierContracts.csproj" />
   </ItemGroup>
 
 </Project>

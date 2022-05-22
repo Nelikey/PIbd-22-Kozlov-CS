@@ -136,9 +136,19 @@ namespace AtelierClientApp.Controllers
         [HttpPost]
         public decimal Calc(decimal count, int dress)
         {
-            DressViewModel dr =
-            APIClient.GetRequest<DressViewModel>($"api/main/geticecream?dressId={dress}");
-            return count * dr.Price;
+            DressViewModel ic =
+            APIClient.GetRequest<DressViewModel>($"api/main/getdress?dressId={dress}");
+            return count * ic.Price;
+        }
+        [HttpGet]
+        public IActionResult Messages()
+        {
+            if (Program.Client == null)
+            {
+                return Redirect("~/Home/Enter");
+            }
+            return View(APIClient.GetRequest<List<MessageInfoViewModel>>
+                ($"api/main/getmessages?clientId={Program.Client.Id}"));
         }
     }
 }
