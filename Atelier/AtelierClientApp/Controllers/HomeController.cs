@@ -137,7 +137,7 @@ namespace AtelierClientApp.Controllers
         public decimal Calc(decimal count, int dress)
         {
             DressViewModel dr =
-            APIClient.GetRequest<DressViewModel>($"api/main/geticecream?dressId={dress}");
+            APIClient.GetRequest<DressViewModel>($"api/main/getdress?dressId={dress}");
             return count * dr.Price;
         }
     }
