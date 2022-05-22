@@ -12,7 +12,10 @@ namespace AtelierDatabaseImplement.Models
     public class Order
     {
         public int Id { get; set; }
+
         public int DressId { get; set; }
+
+        public int ClientId { get; set; }
 
         [Required]
         public int Count { get; set; }
@@ -29,5 +32,7 @@ namespace AtelierDatabaseImplement.Models
         public DateTime? ImplementDate { get; set; }
 
         public virtual Dress Dress { get; set; }
+
+        public virtual Client Client { get; set; }
     }
 }

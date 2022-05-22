@@ -19,6 +19,30 @@ namespace AtelierDatabaseImplement.Migrations
                 .HasAnnotation("ProductVersion", "5.0.15")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("AtelierDatabaseImplement.Models.Client", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ClientFIO")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Clients");
+                });
+
             modelBuilder.Entity("AtelierDatabaseImplement.Models.Component", b =>
                 {
                     b.Property<int>("Id")
@@ -86,6 +110,9 @@ namespace AtelierDatabaseImplement.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("ClientId")
+                        .HasColumnType("int");
+
                     b.Property<int>("Count")
                         .HasColumnType("int");
 
@@ -105,6 +132,8 @@ namespace AtelierDatabaseImplement.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ClientId");
 
                     b.HasIndex("DressId");
 
@@ -132,13 +161,26 @@ namespace AtelierDatabaseImplement.Migrations
 
             modelBuilder.Entity("AtelierDatabaseImplement.Models.Order", b =>
                 {
+                    b.HasOne("AtelierDatabaseImplement.Models.Client", "Client")
+                        .WithMany("Order")
+                        .HasForeignKey("ClientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("AtelierDatabaseImplement.Models.Dress", "Dress")
                         .WithMany("Orders")
                         .HasForeignKey("DressId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.Navigation("Client");
+
                     b.Navigation("Dress");
+                });
+
+            modelBuilder.Entity("AtelierDatabaseImplement.Models.Client", b =>
+                {
+                    b.Navigation("Order");
                 });
 
             modelBuilder.Entity("AtelierDatabaseImplement.Models.Component", b =>

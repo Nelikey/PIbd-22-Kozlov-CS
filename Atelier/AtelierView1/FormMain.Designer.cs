@@ -43,6 +43,7 @@ namespace AtelierView
             this.buttonOrderReady = new System.Windows.Forms.Button();
             this.buttonIssuedOrder = new System.Windows.Forms.Button();
             this.buttonRef = new System.Windows.Forms.Button();
+            this.клиентыtoolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.SuspendLayout();
@@ -62,7 +63,8 @@ namespace AtelierView
             // 
             this.справочникиToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.компонентыToolStripMenuItem,
-            this.изделияToolStripMenuItem});
+            this.изделияToolStripMenuItem,
+            this.клиентыtoolStripMenuItem});
             this.справочникиToolStripMenuItem.Name = "справочникиToolStripMenuItem";
             this.справочникиToolStripMenuItem.Size = new System.Drawing.Size(94, 20);
             this.справочникиToolStripMenuItem.Text = "Справочники";
@@ -171,6 +173,13 @@ namespace AtelierView
             this.buttonRef.UseVisualStyleBackColor = true;
             this.buttonRef.Click += new System.EventHandler(this.buttonRef_Click);
             // 
+            // клиентыtoolStripMenuItem
+            // 
+            this.клиентыtoolStripMenuItem.Name = "клиентыtoolStripMenuItem";
+            this.клиентыtoolStripMenuItem.Size = new System.Drawing.Size(145, 22);
+            this.клиентыtoolStripMenuItem.Text = "Клиенты";
+            this.клиентыtoolStripMenuItem.Click += new System.EventHandler(this.клиентыtoolStripMenuItem_Click);
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -211,5 +220,6 @@ namespace AtelierView
         private System.Windows.Forms.ToolStripMenuItem списоккомпонентовtoolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem компонентыпоизделиямtoolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem списокзаказовtoolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem клиентыtoolStripMenuItem;
     }
 }

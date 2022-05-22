@@ -9,6 +9,7 @@ using System;
 using System.Windows.Forms;
 using Unity;
 using Unity.Lifetime;
+using AtelierContracts.StorageContracts;
 
 namespace AtelierView
 {
@@ -54,6 +55,8 @@ namespace AtelierView
             currentContainer.RegisterType<AbstractSaveToExcel, SaveToExcel>(new HierarchicalLifetimeManager());
             currentContainer.RegisterType<AbstractSaveToWord, SaveToWord>(new HierarchicalLifetimeManager());
             currentContainer.RegisterType<AbstractSaveToPdf, SaveToPdf>(new HierarchicalLifetimeManager());
+            currentContainer.RegisterType<IClientLogic, ClientLogic>(new HierarchicalLifetimeManager());
+            currentContainer.RegisterType<IClientStorage, ClientStorage>(new HierarchicalLifetimeManager());
 
             return currentContainer;
         }

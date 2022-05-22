@@ -9,11 +9,13 @@ namespace AtelierListImplement
         public List<Component> Components { get; set; }
         public List<Order> Orders { get; set; }
         public List<Dress> Dresses { get; set; }
+        public List<Client> Clients { get; set; }
         private DataListSingleton()
         {
             Components = new List<Component>();
             Orders = new List<Order>();
             Dresses = new List<Dress>();
+            Clients = new List<Client>();
         }
         public static DataListSingleton GetInstance()
         {

@@ -26,9 +26,12 @@ namespace AtelierFileImplement.Implements
         public List<OrderViewModel> GetFilteredList(OrderBindingModel model)
         {
             if (model == null) return null;
-            return source.Orders.Where(rec => (model.Id.HasValue && rec.Id.Equals(model.Id)) ||
-                (model.DateFrom.HasValue && model.DateTo.HasValue &&
-                rec.DateCreate >= model.DateFrom && rec.DateCreate <= model.DateTo)).Select(CreateModel).ToList();
+            return source.Orders
+                 .Where(rec => (!model.DateFrom.HasValue && !model.DateTo.HasValue && rec.DateCreate.Date == model.DateCreate.Date) ||
+                 (model.DateFrom.HasValue && model.DateTo.HasValue && rec.DateCreate.Date >= model.DateFrom.Value.Date && rec.DateCreate.Date <= model.DateTo.Value.Date) ||
+                 (model.ClientId.HasValue && rec.ClientId == model.ClientId))
+                 .Select(CreateModel)
+                 .ToList();
         }
 
         public OrderViewModel GetElement(OrderBindingModel model)
@@ -63,6 +66,7 @@ namespace AtelierFileImplement.Implements
         private static Order CreateModel(OrderBindingModel model, Order order)
         {
             order.DressId = model.DressId;
+            order.ClientId = (int)model.ClientId;
             order.Count = model.Count;
             order.Sum = model.Sum;
             order.Status = model.Status;
@@ -80,6 +84,8 @@ namespace AtelierFileImplement.Implements
                 Id = order.Id,
                 DressId = order.DressId,
                 DressName = dressName,
+                ClientId = order.ClientId,
+                ClientFIO = source.Clients.FirstOrDefault(rec => rec.Id == order.ClientId)?.ClientFIO,
                 Count = order.Count,
                 Sum = order.Sum,
                 Status = order.Status.ToString(),

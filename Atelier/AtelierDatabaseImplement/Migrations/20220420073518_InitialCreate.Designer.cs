@@ -10,7 +10,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AtelierDatabaseImplement.Migrations
 {
     [DbContext(typeof(AtelierDatabase))]
-    [Migration("20220322150415_InitialCreate")]
+<<<<<<<< HEAD:Atelier/AtelierDatabaseImplement/Migrations/20220420073518_InitialCreate.Designer.cs
+    [Migration("20220420073518_InitialCreate")]
+========
+    [Migration("20220420012214_InitialCreate")]
+>>>>>>>> 52277858c85a3f4f77ffa57fa76a01968e62ff88:Atelier/AtelierDatabaseImplement/Migrations/20220420012214_InitialCreate.Designer.cs
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -20,6 +24,30 @@ namespace AtelierDatabaseImplement.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.15")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("AtelierDatabaseImplement.Models.Client", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ClientFIO")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Clients");
+                });
 
             modelBuilder.Entity("AtelierDatabaseImplement.Models.Component", b =>
                 {
@@ -88,6 +116,9 @@ namespace AtelierDatabaseImplement.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("ClientId")
+                        .HasColumnType("int");
+
                     b.Property<int>("Count")
                         .HasColumnType("int");
 
@@ -107,6 +138,8 @@ namespace AtelierDatabaseImplement.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ClientId");
 
                     b.HasIndex("DressId");
 
@@ -134,13 +167,26 @@ namespace AtelierDatabaseImplement.Migrations
 
             modelBuilder.Entity("AtelierDatabaseImplement.Models.Order", b =>
                 {
+                    b.HasOne("AtelierDatabaseImplement.Models.Client", "Client")
+                        .WithMany("Order")
+                        .HasForeignKey("ClientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("AtelierDatabaseImplement.Models.Dress", "Dress")
                         .WithMany("Orders")
                         .HasForeignKey("DressId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.Navigation("Client");
+
                     b.Navigation("Dress");
+                });
+
+            modelBuilder.Entity("AtelierDatabaseImplement.Models.Client", b =>
+                {
+                    b.Navigation("Order");
                 });
 
             modelBuilder.Entity("AtelierDatabaseImplement.Models.Component", b =>

@@ -19,11 +19,14 @@ namespace AtelierView
 
         private readonly IOrderLogic _logicO;
 
-        public FormCreateOrder(IDressLogic logicP, IOrderLogic logicO)
+        private readonly IClientLogic _logicC;
+
+        public FormCreateOrder(IDressLogic logicP, IOrderLogic logicO, IClientLogic logicC)
         {
             InitializeComponent();
             _logicP = logicP;
             _logicO = logicO;
+            _logicC = logicC;
         }
 
         private void FormCreateOrder_Load(object sender, EventArgs e)
@@ -35,6 +38,14 @@ namespace AtelierView
                 comboBoxDress.ValueMember = "Id";
                 comboBoxDress.DataSource = list;
                 comboBoxDress.SelectedItem = null;
+            }
+            List<ClientViewModel> listC = _logicC.Read(null);
+            if (listC != null)
+            {
+                comboBoxClient.DisplayMember = "ClientFIO";
+                comboBoxClient.ValueMember = "Id";
+                comboBoxClient.DataSource = listC;
+                comboBoxClient.SelectedItem = null;
             }
         }
         private void CalcSum()
@@ -79,13 +90,20 @@ namespace AtelierView
                MessageBoxIcon.Error);
                 return;
             }
+            if (comboBoxClient.SelectedValue == null)
+            {
+                MessageBox.Show("Выберите клиента", "Ошибка", MessageBoxButtons.OK,
+               MessageBoxIcon.Error);
+                return;
+            }
             try
             {
                 _logicO.CreateOrder(new CreateOrderBindingModel
                 {
                     DressId = Convert.ToInt32(comboBoxDress.SelectedValue),
                     Count = Convert.ToInt32(textBoxCount.Text),
-                    Sum = Convert.ToDecimal(textBoxSum.Text)
+                    Sum = Convert.ToDecimal(textBoxSum.Text),
+                    ClientId = Convert.ToInt32(comboBoxClient.SelectedValue)
                 });
                 MessageBox.Show("Сохранение прошло успешно", "Сообщение",
                MessageBoxButtons.OK, MessageBoxIcon.Information);

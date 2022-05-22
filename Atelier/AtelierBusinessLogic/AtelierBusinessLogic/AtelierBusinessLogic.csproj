@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <PackageReference Include="DocumentFormat.OpenXml" Version="2.16.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.TagHelpers" Version="2.2.0" />
     <PackageReference Include="PdfSharp.MigraDoc.Standard" Version="1.51.15" />
     <PackageReference Include="Unity" Version="5.11.10" />
   </ItemGroup>
