@@ -1,7 +1,8 @@
 using AtelierBusinessLogic.BusinessLogics;
+using AtelierBusinessLogic.MailWorker;
+using AtelierContracts.BindingModels;
 using AtelierContracts.BusinessLogicsContracts;
 using AtelierContracts.StorageContracts;
-using AtelierContracts.StoragesContracts;
 using AtelierDatabaseImplement.Implements;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -34,11 +35,12 @@ namespace AtelierRestApi
             services.AddTransient<IClientStorage, ClientStorage>();
             services.AddTransient<IOrderStorage, OrderStorage>();
             services.AddTransient<IDressStorage, DressStorage>();
-
             services.AddTransient<IOrderLogic, OrderLogic>();
             services.AddTransient<IClientLogic, ClientLogic>();
             services.AddTransient<IDressLogic, DressLogic>();
-
+            services.AddTransient<IMessageInfoStorage, MessageInfoStorage>();
+            services.AddTransient<IMessageInfoLogic, MessageInfoLogic>();
+            services.AddSingleton<AbstractMailWorker, MailKitWorker>();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -65,6 +67,17 @@ namespace AtelierRestApi
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+            });
+
+            var mailSender = app.ApplicationServices.GetService<AbstractMailWorker>();
+            mailSender.MailConfig(new MailConfigBindingModel
+            {
+                MailLogin = Configuration?["MailLogin"],
+                MailPassword = Configuration?["MailPassword"],
+                SmtpClientHost = Configuration?["SmtpClientHost"],
+                SmtpClientPort = Convert.ToInt32(Configuration?["SmtpClientPort"]),
+                PopHost = Configuration?["PopHost"],
+                PopPort = Convert.ToInt32(Configuration?["PopPort"])
             });
         }
     }

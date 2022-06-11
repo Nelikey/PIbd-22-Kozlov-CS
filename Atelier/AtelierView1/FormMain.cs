@@ -35,7 +35,7 @@ namespace AtelierView
             form.ShowDialog();
         }
 
-        private void toolStripMenuItemDresss_Click(object sender, EventArgs e)
+        private void toolStripMenuItemDresses_Click(object sender, EventArgs e)
         {
             var form = Program.Container.Resolve<FormDresses>();
             form.ShowDialog();
@@ -99,7 +99,7 @@ namespace AtelierView
             }
         }
 
-        private void toolStripMenuItemDresssList_Click(object sender, EventArgs e)
+        private void toolStripMenuItemDressesList_Click(object sender, EventArgs e)
         {
             using var dialog = new SaveFileDialog { Filter = "docx|*.docx" };
             if (dialog.ShowDialog() == DialogResult.OK)
@@ -140,6 +140,12 @@ namespace AtelierView
         private void toolStripMenuItemImplementers_Click(object sender, EventArgs e)
         {
             var form = Program.Container.Resolve<FormImplementers>();
+            form.ShowDialog();
+        }
+
+        private void toolStripMenuItemMessages_Click(object sender, EventArgs e)
+        {
+            var form = Program.Container.Resolve<FormMessages>();
             form.ShowDialog();
         }
     }
